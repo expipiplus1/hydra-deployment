@@ -10,6 +10,8 @@ with {
 
 let
   pkgs = import nixpkgs {};
+  
+  concatWithSpace = s1: s2: if s2 == "" then s1 else s1 + " " + s2;
 
   gitBranchSpec = name: url: pull: {
     enabled = 1;
@@ -25,7 +27,7 @@ let
     inputs = {
       src = {
         type = "git";
-        value = "${url} ${pull.head.sha}";
+        value = concatWithSpace url pull.head.sha;
         emailresponsible = true;
       };
       nixpkgs = {
