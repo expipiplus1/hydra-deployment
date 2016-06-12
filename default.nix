@@ -26,6 +26,22 @@ in {
             "src": { "type": "git", "value": "git://github.com/expipiplus1/teeth.git hydra", "emailresponsible": true },
             "nixpkgs": { "type": "git", "value": "git://github.com/NixOS/nixpkgs.git release-16.03", "emailresponsible": false }
         }
+      },
+      "teeth-pr": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "teeth pull request",
+        "nixexprinput": "src",
+        "nixexprpath": "release.nix",
+        "checkinterval": 60,
+        "schedulingshares": 100,
+        "enableemail": true,
+        "emailoverride": "",
+        "keepnr": 3,
+        "inputs": {
+            "src": { "type": "git", "value": "git://github.com/expipiplus1/teeth.git ghc8", "emailresponsible": true },
+            "nixpkgs": { "type": "git", "value": "git://github.com/NixOS/nixpkgs.git release-16.03", "emailresponsible": false }
+        }
       }
     }
 
