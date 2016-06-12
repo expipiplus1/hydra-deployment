@@ -3,13 +3,18 @@
 , githubPulls
 }:
 
+with {
+  inherit (import <nixpkgs/lib/attrsets.nix>) mapAttrs listToAttrs nameValuePair;
+  inherit (import <nixpkgs/lib/debug.nix>) traceVal;
+};
+
 let
   pkgs = import nixpkgs {};
 
-  teethBranch = branch: {
+  teethBranch = pull: {
     enabled = 1;
     hidden = false;
-    description = "teeth ${branch}: " + githubPulls;
+    description = "teeth : ${pull.title}";
     nixexprinput = "src";
     nixexprpath = "release.nix";
     checkinterval = 60;
@@ -20,7 +25,7 @@ let
     inputs = {
       src = {
         type = "git";
-        value = "git://github.com/expipiplus1/teeth.git ${branch}";
+        value = "git://github.com/expipiplus1/teeth.git ${pull.head.sha}";
         emailresponsible = true;
       };
       nixpkgs = {
@@ -31,10 +36,14 @@ let
     };
   };
 
-  genSpec = pkgs.writeText "spec.conf" (builtins.toJSON rec {
-    teeth = teethBranch "master";
-    teeth-ghc8 = teethBranch "ghc8";
-  });
+  masterSpec = teethBranch {title = "master"; head.sha = "";};
+
+  pulls = listToAttrs (map (v: nameValuePair v.title v)
+                      (builtins.fromJSON githubPulls));
+
+  pullSpecs = mapAttrs (n: v: teethBranch v) pulls;
+
+  genSpec = pkgs.writeText "spec.conf" (builtins.toJSON (pullSpecs // masterSpec));
 
 in {
   jobsets = genSpec;
