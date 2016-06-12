@@ -31,7 +31,7 @@ let
     };
   };
 
-  genSpec = pkgs.writeTextDir "spec.conf" (builtins.toJSON rec {
+  genSpec = pkgs.writeText "spec.conf" (builtins.toJSON rec {
     teeth = teethBranch "master";
     teeth-ghc8 = teethBranch "ghc8";
   });
