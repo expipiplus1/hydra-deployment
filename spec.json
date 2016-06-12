@@ -4,7 +4,7 @@
     "description": "Jobsets",
     "nixexprinput": "src",
     "nixexprpath": "default.nix",
-    "checkinterval": 30,
+    "checkinterval": 10,
     "schedulingshares": 100,
     "enableemail": false,
     "emailoverride": "",
