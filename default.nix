@@ -4,8 +4,7 @@
 }:
 
 with {
-  inherit (import <nixpkgs/lib/attrsets.nix>) mapAttrs listToAttrs nameValuePair;
-  inherit (import <nixpkgs/lib/debug.nix>) traceVal;
+  inherit (import <nixpkgs/lib/default.nix>) mapAttrs listToAttrs nameValuePair attrByPath;
 };
 
 let
@@ -27,7 +26,7 @@ let
     inputs = {
       src = {
         type = "git";
-        value = concatWithSpace url pull.head.ref;
+        value = concatWithSpace url (attrByPath ["head" "ref"] "" pull);
         emailresponsible = true;
       };
       nixpkgs = {
@@ -40,7 +39,7 @@ let
 
   teethBranch = gitBranchSpec "teeth" "git://github.com/expipiplus1/teeth.git";
 
-  masterSpec = teethBranch {title = "master"; head.sha = "";};
+  masterSpec = teethBranch {title = "master";};
 
   pulls = listToAttrs (map (v: nameValuePair v.title v)
                       (builtins.fromJSON githubPulls));
