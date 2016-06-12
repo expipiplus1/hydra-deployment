@@ -1,5 +1,6 @@
 { nixpkgs
 , declInput 
+, githubPulls
 }:
 
 let
@@ -8,7 +9,7 @@ let
   teethBranch = branch: {
     enabled = 1;
     hidden = false;
-    description = "teeth ${branch}";
+    description = "teeth ${branch} " + githubPulls;
     nixexprinput = "src";
     nixexprpath = "release.nix";
     checkinterval = 60;
