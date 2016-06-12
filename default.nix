@@ -39,7 +39,7 @@ let
 
   teethBranch = gitBranchSpec "teeth" "git://github.com/expipiplus1/teeth.git";
 
-  masterSpec = teethBranch {title = "master";};
+  masterSpec = {master = teethBranch {title = "master";};};
 
   pulls = listToAttrs (map (v: nameValuePair v.title v)
                       (builtins.fromJSON githubPulls));
