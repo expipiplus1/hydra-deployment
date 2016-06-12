@@ -16,7 +16,7 @@ let
   gitBranchSpec = name: url: pull: {
     enabled = 1;
     hidden = false;
-    description = "${name} : ${pull.title}";
+    description = "${name}: ${pull.title}";
     nixexprinput = "src";
     nixexprpath = "release.nix";
     checkinterval = 90;
