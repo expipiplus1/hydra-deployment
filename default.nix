@@ -27,7 +27,7 @@ let
     inputs = {
       src = {
         type = "git";
-        value = concatWithSpace url pull.head.sha;
+        value = concatWithSpace url pull.head.ref;
         emailresponsible = true;
       };
       nixpkgs = {
