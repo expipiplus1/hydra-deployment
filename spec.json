@@ -11,6 +11,7 @@
     "keepnr": 3,
     "inputs": {
         "src": { "type": "git", "value": "git://github.com/expipiplus1/hydra-deployment.git", "emailresponsible": true },
-        "nixpkgs": { "type": "git", "value": "git://github.com/NixOS/nixpkgs.git release-16.03", "emailresponsible": false }
+        "nixpkgs": { "type": "git", "value": "git://github.com/NixOS/nixpkgs.git release-16.03", "emailresponsible": false },
+        "pulls": { "type": "githubAPI", "value": "/repos/expipiplus1/teeth/pulls", "emailresponsible": false }
     }
 }
