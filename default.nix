@@ -11,10 +11,10 @@ with {
 let
   pkgs = import nixpkgs {};
 
-  teethBranch = pull: {
+  gitBranchSpec = name: url: pull: {
     enabled = 1;
     hidden = false;
-    description = "teeth : ${pull.title}";
+    description = "${name} : ${pull.title}";
     nixexprinput = "src";
     nixexprpath = "release.nix";
     checkinterval = 60;
@@ -25,7 +25,7 @@ let
     inputs = {
       src = {
         type = "git";
-        value = "git://github.com/expipiplus1/teeth.git ${pull.head.sha}";
+        value = "${url} ${pull.head.sha}";
         emailresponsible = true;
       };
       nixpkgs = {
@@ -35,6 +35,8 @@ let
       };
     };
   };
+
+  teethBranch = gitBranchSpec "teeth" "git://github.com/expipiplus1/teeth.git";
 
   masterSpec = teethBranch {title = "master"; head.sha = "";};
 
