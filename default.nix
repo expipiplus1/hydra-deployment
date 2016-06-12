@@ -17,7 +17,7 @@ let
     description = "${name} : ${pull.title}";
     nixexprinput = "src";
     nixexprpath = "release.nix";
-    checkinterval = 60;
+    checkinterval = 90;
     schedulingshares = 100;
     enableemail = true;
     emailoverride = "";
